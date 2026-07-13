@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IELTS Reading Lesson — Day 4</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #ffffff;
+      --ink: #1f2933;
+      --muted: #5b6673;
+      --line: #d7d0c4;
+      --accent: #6b4f2a;
+      --accent2: #0f5e56;
+      --soft: #efe8dc;
+      --field: #fffdf7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .topbar-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .topbar a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button, .button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button.secondary, .button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+    button.danger {
+      background: #8a2d2d;
+      border-color: #8a2d2d;
+    }
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent2);
+      min-width: 82px;
+      text-align: right;
+    }
+    main {
+      max-width: 1000px;
+      margin: 22px auto 60px;
+      padding: 0 18px;
+    }
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 6px 22px rgba(31, 41, 51, .07);
+      padding: 28px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 30px;
+      line-height: 1.15;
+      color: var(--accent);
+    }
+    h2 {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 2px solid var(--soft);
+      color: var(--accent2);
+      font-size: 23px;
+    }
+    h3 {
+      color: var(--accent);
+      margin-top: 24px;
+      font-size: 18px;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .source {
+      background: var(--soft);
+      border-left: 5px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #3b3328;
+      margin: 16px 0 22px;
+    }
+    .rule {
+      background: #eef7f5;
+      border: 1px solid #cbe4df;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+    .passage {
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 14px 0 22px;
+    }
+    .question {
+      margin: 18px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #ddd4c7;
+    }
+    .question:last-child { border-bottom: 0; }
+    .qnum {
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .answer-field {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      background: var(--field);
+      font: inherit;
+      resize: vertical;
+    }
+    .short-field { min-height: 38px; }
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    label.meta {
+      display: block;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .meta input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      font: inherit;
+      background: var(--field);
+    }
+    details {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--soft);
+    }
+    .answers {
+      padding: 16px 20px;
+    }
+    .answers ol {
+      margin-top: 0;
+    }
+    .navrow {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0 20px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px;
+      vertical-align: top;
+    }
+    th {
+      background: var(--soft);
+      text-align: left;
+    }
+    ul.checklist li {
+      margin: 8px 0;
+    }
+    @media (max-width: 720px) {
+      .name-row { grid-template-columns: 1fr; }
+      .topbar-inner { align-items: flex-start; }
+      .timer { text-align: left; }
+      .paper { padding: 18px; }
+      h1 { font-size: 25px; }
+    }
+    @media print {
+      body { background: white; }
+      .topbar, .navrow, .no-print { display: none !important; }
+      main { margin: 0; max-width: none; padding: 0; }
+      .paper { border: 0; box-shadow: none; padding: 0; }
+      details { page-break-inside: avoid; }
+      .answer-field, .meta input {
+        border: 1px solid #999;
+        background: white;
+      }
+      h2 { page-break-before: auto; }
+      .passage { background: white; }
+    }
+  </style>
+</head>
+<body data-page="ielts_day4_housing_interactive">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><a href="ielts_final_week_index_v3.html">← Final Week Menu</a></div>
+      <div class="controls">
+        <span class="timer" id="timer">60:00</span>
+        <button type="button" onclick="startTimer()">Start</button>
+        <button type="button" class="secondary" onclick="resetTimer()">Reset</button>
+        <button type="button" class="secondary" onclick="window.print()">Print</button>
+        <button type="button" onclick="downloadAnswers()">Download my answers</button>
+        <button type="button" class="danger" onclick="clearAnswers()">Clear typed answers</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <article class="paper">
+      <h1>IELTS Reading Lesson — Day 4</h1>
+      <div class="subtitle">Timed Section Practice | Falling House Prices and Affordability</div>
+      <div class="source">Based on the ABC article about falling house prices and why lower prices do not necessarily mean housing is affordable. The passages are paraphrased for IELTS practice.</div>
+
+      <div class="name-row">
+        <label class="meta">Name
+          <input data-save="name" type="text" placeholder="Type name here">
+        </label>
+        <label class="meta">Date
+          <input data-save="date" type="text" placeholder="Type date here">
+        </label>
+      </div>
+
+      
+<div class="rule">
+  <p><strong>Today’s Rule</strong></p>
+  <p>Work under time. Find the easier marks first. If a question is too hard, mark it and move on. Return later if time remains.</p>
+</div>
+
+<h2>Timing</h2>
+<p>This lesson has 3 sections and 40 questions. You have 60 minutes.</p>
+<ul>
+  <li>Section 1: 15 minutes</li>
+  <li>Section 2: 20 minutes</li>
+  <li>Section 3: 25 minutes</li>
+</ul>
+
+<h2>Section 1 — Questions 1–13</h2>
+<div class="passage">
+<h3>Passage 1: Saving for a Home</h3>
+<p>Free Sobolewski grew up with a strong belief that hard work and careful saving would one day lead to home ownership. Her early childhood was spent in a small, simple home in rural New South Wales. The house had only one main room, and a curtain separated the sleeping area from the rest of the home. Although the home was modest, it gave her an early sense that shelter and family stability mattered deeply.</p>
+<p>Her parents later bought a five-bedroom house in the Brisbane suburb of Bellbowrie. Free remembered sitting on the empty dining-room floor as a child and realising that owning a home seemed possible. From that time, she wanted the same security for herself. The memory remained powerful because it connected home ownership with safety, independence and a future that could be planned.</p>
+<p>As she grew older, Free saved every amount she could. She saved money from childhood chores, pocket money and later employment. She studied mathematics, paid off her degree and eventually gained a well-paid job with a mining company. By the age of 27, she had saved nearly $285,000. She believed this discipline would place her in a strong position when she entered the property market.</p>
+<p>In an earlier period, such a large deposit might have been enough to buy a comfortable home. However, the housing market had changed. Free made many offers on homes near Brisbane, but they were repeatedly rejected. Some homes she tried to buy later appeared for rent, while others were purchased by investors and marked for demolition. Each unsuccessful attempt made the process feel less predictable and more discouraging.</p>
+<p>Free felt that she had done everything she was told to do. She had studied, worked, saved and acted responsibly. Yet the connection between effort and reward no longer seemed clear. The market felt less like a fair competition and more like a hostile environment. Her experience shows how a person can follow the expected path and still find that the goal has moved further away.</p>
+</div>
+
+<h3>Questions 1–6 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">1.</span> Free believed from an early age that careful saving could help a person buy a home.</div>
+  <textarea class="answer-field short-field" data-save="q1" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">2.</span> Free’s childhood home in rural New South Wales had several large bedrooms.</div>
+  <textarea class="answer-field short-field" data-save="q2" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">3.</span> Free’s parents later bought a home in Bellbowrie.</div>
+  <textarea class="answer-field short-field" data-save="q3" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">4.</span> Free saved only after she began working in the mining industry.</div>
+  <textarea class="answer-field short-field" data-save="q4" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">5.</span> By the age of 27, Free had saved almost $285,000.</div>
+  <textarea class="answer-field short-field" data-save="q5" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">6.</span> All the homes Free made offers on were purchased by first-home buyers.</div>
+  <textarea class="answer-field short-field" data-save="q6" placeholder="Type answer here"></textarea>
+</div>
+<h3>Questions 7–13 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">7.</span> Where did Free spend her early childhood?</div>
+  <textarea class="answer-field" data-save="q7" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">8.</span> What separated the sleeping area from the rest of the home?</div>
+  <textarea class="answer-field" data-save="q8" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">9.</span> In which Brisbane suburb did Free’s parents buy a house?</div>
+  <textarea class="answer-field" data-save="q9" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">10.</span> What did Free study?</div>
+  <textarea class="answer-field" data-save="q10" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">11.</span> What kind of company later employed Free?</div>
+  <textarea class="answer-field" data-save="q11" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">12.</span> What happened to some homes after Free had made offers on them?</div>
+  <textarea class="answer-field" data-save="q12" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">13.</span> How did the market feel to Free?</div>
+  <textarea class="answer-field" data-save="q13" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 2 — Questions 14–27</h2>
+<div class="passage">
+<h3>Passage 2: Falling Prices Do Not Always Mean Affordability</h3>
+<p>Australia’s housing market has risen strongly over many years. House prices have increased by more than 400 per cent since 2000. The average home, which was once around $210,000, is now above $1 million. This long rise has changed the starting point for many buyers, especially those trying to enter the market for the first time.</p>
+<p>Recent forecasts suggest that prices may fall by between five and 10 per cent. Some people may hear this and assume that homes will soon become affordable. However, economists argue that a small fall after decades of strong growth does not solve the deeper problem. A decline may make headlines, but it may still leave prices far beyond the reach of ordinary incomes.</p>
+<p>One economist described the predicted fall as a market correction rather than a true improvement in affordability. She said that, for an average income to match the median home price, prices would need to fall by about 45 per cent. She did not expect such a large fall to occur. In her view, the scale of the earlier rise means that a modest fall would only partly reverse the pressure on buyers.</p>
+<p>Some experts argue that the answer is not simply lower house prices. They believe wages need to rise faster than property prices. In other words, affordability improves when people’s incomes grow more quickly than the cost of housing. This means the relationship between wages and prices is just as important as the price of a house in isolation.</p>
+<p>A public policy think tank has also argued that Australia needs planning reform. It supports more housing in places where people want to live. It also says there needs to be a cultural change in the way housing is viewed. A house should not only be seen as a source of wealth or investment. Its basic purpose is to provide secure housing. Without that change in thinking, the debate may continue to focus on property gains rather than human need.</p>
+</div>
+
+<h3>Questions 14–19 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">14.</span> Question phrase: <strong>gone up greatly over a long period</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q14" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">15.</span> Question phrase: <strong>people may think homes will soon be easier to buy</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q15" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">16.</span> Question phrase: <strong>does not fix the main issue</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q16" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">17.</span> Question phrase: <strong>a small adjustment in the market</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q17" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">18.</span> Question phrase: <strong>earnings must increase more quickly than house values</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q18" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">19.</span> Question phrase: <strong>safe and stable accommodation</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q19" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 20–24 — Sentence Completion</h3>
+<div class="question">
+  <div><span class="qnum">20.</span> House prices have increased by more than ___________________________ since 2000.</div>
+  <textarea class="answer-field" data-save="q20" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">21.</span> The average home is now above ___________________________.</div>
+  <textarea class="answer-field" data-save="q21" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">22.</span> Recent forecasts suggest prices may fall by between ___________________________.</div>
+  <textarea class="answer-field" data-save="q22" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">23.</span> For an average income to match the median home price, prices would need to fall by about ___________________________.</div>
+  <textarea class="answer-field" data-save="q23" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">24.</span> Some experts believe affordability improves when incomes grow more quickly than the ___________________________.</div>
+  <textarea class="answer-field" data-save="q24" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 25–27 — Multiple Choice</h3>
+<div class="question">
+  <div><span class="qnum">25.</span> Why might a five to 10 per cent fall in prices not be enough?<br>A. Because house prices have already fallen too far<br>B. Because wages have disappeared completely<br>C. Because prices have risen strongly over many years<br>D. Because nobody wants to buy homes anymore</div>
+  <textarea class="answer-field short-field" data-save="q25" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">26.</span> What does the public policy think tank support?<br>A. Fewer homes in popular areas<br>B. More housing in places where people want to live<br>C. Removing all planning rules<br>D. Treating all houses only as investments</div>
+  <textarea class="answer-field short-field" data-save="q26" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">27.</span> According to Passage 2, what is the basic purpose of a house?<br>A. To provide secure housing<br>B. To make every owner wealthy<br>C. To increase investor profits<br>D. To replace wages</div>
+  <textarea class="answer-field short-field" data-save="q27" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 3 — Questions 28–40</h2>
+<div class="passage">
+<h3>Passage 3: Compromise and the Regional Question</h3>
+<p>For many years, one common suggestion for people priced out of the city was to move to regional areas. This advice became more popular during the pandemic, when remote work allowed more people to live away from major city centres. However, the financial advantage of moving to the regions has become much smaller. The choice is no longer as simple as leaving the city and finding a cheap alternative.</p>
+<p>Housing data shows that the dwelling-value-to-income ratio in regional Australia is now very close to the ratio in metropolitan areas. In simple terms, homes in regional areas are not automatically cheap when local incomes are taken into account. The difference between regional and city affordability has narrowed. This means regional buyers may face pressure similar to city buyers, even when headline prices appear lower.</p>
+<p>Free Sobolewski’s own search became a game of compromise. She attended inspections regularly and made more than 20 rejected offers over a 12-month period. As prices rose faster than she could save, she widened the area in which she was willing to buy. Her search moved further and further from central Brisbane. Each widening of the search area meant accepting a longer distance from the places and routines she had hoped to keep.</p>
+<p>Eventually, Free had an offer accepted on a property in Redbank Plains, about 35 kilometres from the city. The home was further away than she had hoped and more expensive than she wanted. Even after buying, the financial pressure continued. Her interest rate increased, and her monthly repayments rose from about $3,800 to more than $4,200. The purchase gave her stability, but it also brought a demanding financial commitment.</p>
+<p>Today, around half of Free’s take-home income goes to the bank. She has reduced spending where she can and lives as carefully as possible. Yet she is grateful to have a permanent place to live. She says she did not buy the house as an investment. She bought it because she wanted somewhere stable where she could build a life. For her, the house is first a home, not a strategy for making money.</p>
+<p>Her story shows the tension in the housing debate. Falling prices may help some buyers, but they do not automatically create affordability. For many young Australians, the larger question remains whether hard work, education and responsible saving can still realistically lead to home ownership. The answer depends not only on prices, but also on wages, interest rates, supply and the expectations placed on younger buyers.</p>
+</div>
+
+<h3>Questions 28–34 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">28.</span> Moving to regional areas has always guaranteed cheaper housing.</div>
+  <textarea class="answer-field short-field" data-save="q28" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">29.</span> Remote work during the pandemic allowed some people to live away from major city centres.</div>
+  <textarea class="answer-field short-field" data-save="q29" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">30.</span> The difference between regional and city affordability has become smaller.</div>
+  <textarea class="answer-field short-field" data-save="q30" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">31.</span> Free made more than 20 rejected offers in one year.</div>
+  <textarea class="answer-field short-field" data-save="q31" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">32.</span> Free bought a property less than 10 kilometres from central Brisbane.</div>
+  <textarea class="answer-field short-field" data-save="q32" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">33.</span> Free’s monthly repayments rose to more than $4,200.</div>
+  <textarea class="answer-field short-field" data-save="q33" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">34.</span> Free bought her house mainly as an investment property.</div>
+  <textarea class="answer-field short-field" data-save="q34" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 35–38 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">35.</span> Question phrase: <strong>people unable to afford city housing</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q35" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">36.</span> Question phrase: <strong>the benefit of moving outside the city has reduced</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q36" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">37.</span> Question phrase: <strong>she increased the distance she was willing to search</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q37" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">38.</span> Question phrase: <strong>a secure place where she could make a future</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q38" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 39–40 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">39.</span> How much of Free’s take-home income goes to the bank?</div>
+  <textarea class="answer-field" data-save="q39" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">40.</span> What larger question remains for many young Australians?</div>
+  <textarea class="answer-field" data-save="q40" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Final Check</h2>
+<ul class="checklist">
+  <li>Did I keep moving?</li>
+  <li>Did I collect the easier marks first?</li>
+  <li>Did I avoid spending too long on one hard question?</li>
+  <li>Did I use only the passage?</li>
+  <li>Did I finish within 60 minutes?</li>
+</ul>
+
+
+      <details>
+        <summary>Teacher Answer Guide</summary>
+        <div class="answers">
+          
+<h3>Section 1</h3>
+<ol>
+<li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li>
+<li>In a small, simple home in rural New South Wales.</li>
+<li>A curtain.</li>
+<li>Bellbowrie.</li>
+<li>Mathematics.</li>
+<li>A mining company.</li>
+<li>Some appeared for rent; others were purchased by investors and marked for demolition.</li>
+<li>Less like a fair competition and more like a hostile environment.</li>
+</ol>
+<h3>Section 2</h3>
+<ol start="14">
+<li>risen strongly over many years</li>
+<li>assume that homes will soon become affordable</li>
+<li>does not solve the deeper problem</li>
+<li>market correction</li>
+<li>wages need to rise faster than property prices</li>
+<li>secure housing</li>
+<li>400 per cent</li>
+<li>$1 million</li>
+<li>five and 10 per cent</li>
+<li>45 per cent</li>
+<li>cost of housing</li>
+<li>C</li><li>B</li><li>A</li>
+</ol>
+<h3>Section 3</h3>
+<ol start="28">
+<li>FALSE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li>
+<li>people priced out of the city</li>
+<li>the financial advantage of moving to the regions has become much smaller</li>
+<li>she widened the area in which she was willing to buy</li>
+<li>somewhere stable where she could build a life</li>
+<li>Around half.</li>
+<li>Whether hard work, education and responsible saving can still realistically lead to home ownership.</li>
+</ol>
+
+        </div>
+      </details>
+
+      <div class="navrow no-print">
+        <a class="button secondary" href="ielts_final_week_index_v3.html">Menu</a>
+        <a class="button secondary" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const pageKey = document.body.dataset.page || document.title.replace(/\W+/g, "_");
+    const fields = () => Array.from(document.querySelectorAll("[data-save]"));
+    const timerEl = document.getElementById("timer");
+    let remaining = Number(localStorage.getItem(pageKey + ":timer") || 3600);
+    let timerId = null;
+
+    function fmt(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    }
+    function renderTimer() {
+      timerEl.textContent = fmt(remaining);
+    }
+    function startTimer() {
+      if (timerId) return;
+      timerId = setInterval(() => {
+        remaining = Math.max(0, remaining - 1);
+        localStorage.setItem(pageKey + ":timer", String(remaining));
+        renderTimer();
+        if (remaining <= 0) {
+          clearInterval(timerId);
+          timerId = null;
+          alert("Time is finished.");
+        }
+      }, 1000);
+    }
+    function resetTimer() {
+      clearInterval(timerId);
+      timerId = null;
+      remaining = 3600;
+      localStorage.setItem(pageKey + ":timer", String(remaining));
+      renderTimer();
+    }
+    function saveField(el) {
+      localStorage.setItem(pageKey + ":" + el.dataset.save, el.value);
+    }
+    function loadFields() {
+      fields().forEach(el => {
+        const saved = localStorage.getItem(pageKey + ":" + el.dataset.save);
+        if (saved !== null) el.value = saved;
+        el.addEventListener("input", () => saveField(el));
+      });
+    }
+    function clearAnswers() {
+      if (!confirm("Clear all typed answers on this page?")) return;
+      fields().forEach(el => {
+        el.value = "";
+        localStorage.removeItem(pageKey + ":" + el.dataset.save);
+      });
+    }
+    function downloadAnswers() {
+      const title = document.querySelector("h1").textContent.trim();
+      const lines = [];
+      lines.push(title);
+      lines.push(document.querySelector(".subtitle").textContent.trim());
+      lines.push("");
+      fields().forEach(el => {
+        const label = el.closest("label")?.innerText?.split("\n")[0]?.trim() || el.dataset.save;
+        lines.push(label + ": " + (el.value || ""));
+      });
+      const blob = new Blob([lines.join("\n")], {type: "text/plain;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = pageKey + "_answers.txt";
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    }
+    renderTimer();
+    loadFields();
+  </script>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IELTS Reading Lesson — Day 5</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #ffffff;
+      --ink: #1f2933;
+      --muted: #5b6673;
+      --line: #d7d0c4;
+      --accent: #6b4f2a;
+      --accent2: #0f5e56;
+      --soft: #efe8dc;
+      --field: #fffdf7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .topbar-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .topbar a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button, .button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button.secondary, .button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+    button.danger {
+      background: #8a2d2d;
+      border-color: #8a2d2d;
+    }
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent2);
+      min-width: 82px;
+      text-align: right;
+    }
+    main {
+      max-width: 1000px;
+      margin: 22px auto 60px;
+      padding: 0 18px;
+    }
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 6px 22px rgba(31, 41, 51, .07);
+      padding: 28px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 30px;
+      line-height: 1.15;
+      color: var(--accent);
+    }
+    h2 {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 2px solid var(--soft);
+      color: var(--accent2);
+      font-size: 23px;
+    }
+    h3 {
+      color: var(--accent);
+      margin-top: 24px;
+      font-size: 18px;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .source {
+      background: var(--soft);
+      border-left: 5px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #3b3328;
+      margin: 16px 0 22px;
+    }
+    .rule {
+      background: #eef7f5;
+      border: 1px solid #cbe4df;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+    .passage {
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 14px 0 22px;
+    }
+    .question {
+      margin: 18px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #ddd4c7;
+    }
+    .question:last-child { border-bottom: 0; }
+    .qnum {
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .answer-field {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      background: var(--field);
+      font: inherit;
+      resize: vertical;
+    }
+    .short-field { min-height: 38px; }
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    label.meta {
+      display: block;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .meta input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      font: inherit;
+      background: var(--field);
+    }
+    details {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--soft);
+    }
+    .answers {
+      padding: 16px 20px;
+    }
+    .answers ol {
+      margin-top: 0;
+    }
+    .navrow {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0 20px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px;
+      vertical-align: top;
+    }
+    th {
+      background: var(--soft);
+      text-align: left;
+    }
+    ul.checklist li {
+      margin: 8px 0;
+    }
+    @media (max-width: 720px) {
+      .name-row { grid-template-columns: 1fr; }
+      .topbar-inner { align-items: flex-start; }
+      .timer { text-align: left; }
+      .paper { padding: 18px; }
+      h1 { font-size: 25px; }
+    }
+    @media print {
+      body { background: white; }
+      .topbar, .navrow, .no-print { display: none !important; }
+      main { margin: 0; max-width: none; padding: 0; }
+      .paper { border: 0; box-shadow: none; padding: 0; }
+      details { page-break-inside: avoid; }
+      .answer-field, .meta input {
+        border: 1px solid #999;
+        background: white;
+      }
+      h2 { page-break-before: auto; }
+      .passage { background: white; }
+    }
+  </style>
+</head>
+<body data-page="ielts_day5_aged_care_interactive">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><a href="ielts_final_week_index_v3.html">← Final Week Menu</a></div>
+      <div class="controls">
+        <span class="timer" id="timer">60:00</span>
+        <button type="button" onclick="startTimer()">Start</button>
+        <button type="button" class="secondary" onclick="resetTimer()">Reset</button>
+        <button type="button" class="secondary" onclick="window.print()">Print</button>
+        <button type="button" onclick="downloadAnswers()">Download my answers</button>
+        <button type="button" class="danger" onclick="clearAnswers()">Clear typed answers</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <article class="paper">
+      <h1>IELTS Reading Lesson — Day 5</h1>
+      <div class="subtitle">Full Reading Practice | Aged Care Fees, Services and Consumer Protection</div>
+      <div class="source">Based on the Guardian article about aged care charges, extra services, regulator investigation, and consumer protections. The passages are paraphrased for IELTS practice.</div>
+
+      <div class="name-row">
+        <label class="meta">Name
+          <input data-save="name" type="text" placeholder="Type name here">
+        </label>
+        <label class="meta">Date
+          <input data-save="date" type="text" placeholder="Type date here">
+        </label>
+      </div>
+
+      
+<div class="rule">
+  <p><strong>Today’s Rule</strong></p>
+  <p>This is a full timed Reading practice. Use 60 minutes only. Do not discuss during the test. Answer from the passage only. Move on if a question is taking too long.</p>
+</div>
+
+<h2>Timing</h2>
+<p>This lesson has 3 sections and 40 questions. You have 60 minutes.</p>
+<ul>
+  <li>Section 1: 15 minutes</li>
+  <li>Section 2: 20 minutes</li>
+  <li>Section 3: 25 minutes</li>
+</ul>
+
+<h2>Section 1 — Questions 1–13</h2>
+<div class="passage">
+<h3>Passage 1: Extra Charges in an Aged Care Home</h3>
+<p>When Jeff Gilling looked through the contract for the aged care home his mother Dorothy was about to enter, he noticed an extra daily charge. The fee was for additional services such as pay television, newspapers, outings and wine. These charges appeared as part of the documentation at a time when the family was already dealing with a stressful decision.</p>
+<p>Dorothy was living with advanced dementia. Jeff believed that many of the services listed in the contract were of no practical benefit to her. She could not choose television programs or properly enjoy them. He felt she was being asked to pay for things she could not realistically use. The issue, for him, was not whether the services existed, but whether his mother could genuinely access them.</p>
+<p>At the time, Jeff was told the extra fee was not optional. Like many families placing a loved one into aged care, he was under emotional pressure. His priority was to move his mother into safe care, not to begin a dispute about paperwork. In such circumstances, families may accept terms quickly because they are focused on immediate safety and care.</p>
+<p>Later, Jeff investigated his mother’s rights and challenged the aged care home. He argued that the additional fees should not have been charged because his mother could not access or benefit from the services. After reviews, he received refunds totalling almost $37,000. The refund suggested that questioning the charges could make a real financial difference.</p>
+<p>Jeff said many families may not realise they can question such charges. Others may not have the confidence, time or energy to challenge a provider. He described the process as difficult and requiring persistence. His experience shows how complex aged care paperwork can be for families who are already emotionally burdened.</p>
+</div>
+
+<h3>Questions 1–6 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">1.</span> Jeff noticed an extra daily charge in his mother’s aged care contract.</div>
+  <textarea class="answer-field short-field" data-save="q1" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">2.</span> The extra fee included services such as pay television and newspapers.</div>
+  <textarea class="answer-field short-field" data-save="q2" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">3.</span> Dorothy personally requested the extra services before entering the home.</div>
+  <textarea class="answer-field short-field" data-save="q3" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">4.</span> Jeff believed Dorothy could not realistically use many of the services.</div>
+  <textarea class="answer-field short-field" data-save="q4" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">5.</span> Jeff immediately refused to sign the contract.</div>
+  <textarea class="answer-field short-field" data-save="q5" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">6.</span> Jeff eventually received almost $37,000 in refunds.</div>
+  <textarea class="answer-field short-field" data-save="q6" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 7–13 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">7.</span> What condition was Dorothy living with?</div>
+  <textarea class="answer-field" data-save="q7" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">8.</span> Name two services included in the extra daily charge.</div>
+  <textarea class="answer-field" data-save="q8" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">9.</span> What was Jeff’s priority at the time?</div>
+  <textarea class="answer-field" data-save="q9" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">10.</span> What did Jeff later investigate?</div>
+  <textarea class="answer-field" data-save="q10" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">11.</span> Why did Jeff argue the fees should not have been charged?</div>
+  <textarea class="answer-field" data-save="q11" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">12.</span> What may some families lack when challenging a provider?</div>
+  <textarea class="answer-field" data-save="q12" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">13.</span> How did Jeff describe the process?</div>
+  <textarea class="answer-field" data-save="q13" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 2 — Questions 14–27</h2>
+<div class="passage">
+<h3>Passage 2: Complaints, Investigations and the Law</h3>
+<p>Jeff Gilling’s experience was not isolated. Around Australia, other aged care residents, or their families, have raised concerns about being charged for services that residents could not use, did not understand, or were not able to benefit from. These concerns have drawn attention to the difference between services offered on paper and services that are meaningful for a particular resident.</p>
+<p>In the first half of 2026, the national aged care regulator received 199 complaints concerning fees, service charges or funding connected with residential aged care. A large number of these complaints related to for-profit providers, while others concerned not-for-profit and government providers. The spread of complaints across different types of providers suggests that the issue is not limited to one part of the sector.</p>
+<p>The regulator began investigating several providers over allegedly improper additional fees. It also said some providers had reviewed and changed their practices voluntarily. Because investigations were continuing, the regulator did not provide full details about each case. This meant the public could see the broad concern, but not every individual fact behind the investigations.</p>
+<p>A separate class action has also been brought against one aged care provider. The claim alleges that residents were charged for extra services, including social activities and meal-related services, even when some residents could not use them because of health conditions. The provider said it would not comment on allegations while the matter was before the court. Legal proceedings of this kind can take time, especially when they involve many residents.</p>
+<p>Aged care rules place limits on when providers can charge residents for additional services. In general, residents must agree to the services, be able to access them, and have the capacity to benefit from them. The purpose of such rules is to prevent people from being charged for services that are of no real use to them. The central question is whether a charge is connected to genuine benefit, rather than merely appearing in a contract.</p>
+</div>
+
+<h3>Questions 14–19 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">14.</span> Question phrase: <strong>not an unusual single case</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q14" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">15.</span> Question phrase: <strong>fees connected with services in aged care homes</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q15" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">16.</span> Question phrase: <strong>possibly unlawful extra charges</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q16" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">17.</span> Question phrase: <strong>changed their behaviour without being forced</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q17" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">18.</span> Question phrase: <strong>unable to use the services because of medical issues</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q18" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">19.</span> Question phrase: <strong>rules restrict when extra services can be charged</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q19" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 20–24 — Sentence Completion</h3>
+<div class="question">
+  <div><span class="qnum">20.</span> In the first half of 2026, the regulator received ___________________________ complaints.</div>
+  <textarea class="answer-field" data-save="q20" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">21.</span> Some complaints related to for-profit, not-for-profit and ___________________________ providers.</div>
+  <textarea class="answer-field" data-save="q21" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">22.</span> Several providers were investigated over allegedly improper ___________________________.</div>
+  <textarea class="answer-field" data-save="q22" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">23.</span> One provider would not comment because the matter was before the ___________________________.</div>
+  <textarea class="answer-field" data-save="q23" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">24.</span> Residents must be able to access the services and have the capacity to ___________________________ from them.</div>
+  <textarea class="answer-field" data-save="q24" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 25–27 — Multiple Choice</h3>
+<div class="question">
+  <div><span class="qnum">25.</span> Why did the regulator not provide full details about each case?<br>A. Because no complaints had been received<br>B. Because the investigations were continuing<br>C. Because every provider had already been punished<br>D. Because the complaints were only about hospitals</div>
+  <textarea class="answer-field short-field" data-save="q25" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">26.</span> According to the passage, what was alleged in the class action?<br>A. Residents were charged for extra services they could not always use<br>B. Residents were never charged any additional fees<br>C. Residents were given free accommodation<br>D. Residents refused all social activities</div>
+  <textarea class="answer-field short-field" data-save="q26" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">27.</span> According to the passage, why do rules limit additional service fees?<br>A. To remove all aged care fees<br>B. To stop residents receiving care<br>C. To prevent charges for services of no real use<br>D. To make all services optional for staff</div>
+  <textarea class="answer-field short-field" data-save="q27" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 3 — Questions 28–40</h2>
+<div class="passage">
+<h3>Passage 3: Premium Services and Basic Care</h3>
+<p>Recent changes to aged care fees have allowed providers to charge residents for some premium services and lifestyle additions. These may include services beyond the ordinary standard of care. However, concerns have been raised about how these extra charges are being used. The concern is not simply that extra services exist, but that the boundary between basic care and optional additions may become unclear.</p>
+<p>The regulator has warned that providers cannot reduce the quality of ordinary care in order to encourage residents to pay for premium options. For example, standard meals must still be nutritious, appealing and suitable for residents’ needs. A provider cannot make basic meals poorer so that residents feel pressured to purchase upgraded choices. Ordinary care must not be weakened to make paid alternatives look more attractive.</p>
+<p>Advocates have also expressed concern about the flexibility providers have in deciding which services are treated as extras and how much they cost. If entertainment, activities or food choices are increasingly placed behind extra fees, residents with fewer financial resources may have a poorer experience than those who can pay more. This is especially sensitive because many aged care residents have limited ability to shop around or move elsewhere.</p>
+<p>This has led to concern about a two-tier aged care system. In such a system, wealthier residents may receive a wider range of enjoyable services, while others receive only the minimum level of care. Critics argue that this would be unfair because aged care should protect dignity, not divide people according to income. The dignity of residents should not depend on whether they can afford additional lifestyle packages.</p>
+<p>The debate shows a difficult balance. Providers may wish to offer additional services for residents who want them. However, basic care must remain adequate, respectful and available to all. Extra services should not become a way of weakening the standard support that every resident deserves. The challenge is to allow choice without allowing essential care to become second-rate for those who cannot pay more.</p>
+</div>
+
+<h3>Questions 28–34 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">28.</span> Recent changes have allowed aged care providers to charge for some premium services.</div>
+  <textarea class="answer-field short-field" data-save="q28" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">29.</span> The passage says providers may reduce ordinary care if residents refuse premium services.</div>
+  <textarea class="answer-field short-field" data-save="q29" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">30.</span> Standard meals should still be nutritious and suitable for residents.</div>
+  <textarea class="answer-field short-field" data-save="q30" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">31.</span> Advocates are concerned about how providers decide what counts as an extra service.</div>
+  <textarea class="answer-field short-field" data-save="q31" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">32.</span> A two-tier system would mean every resident receives exactly the same services.</div>
+  <textarea class="answer-field short-field" data-save="q32" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">33.</span> Critics argue that aged care should protect dignity.</div>
+  <textarea class="answer-field short-field" data-save="q33" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">34.</span> The passage says premium services must be banned completely.</div>
+  <textarea class="answer-field short-field" data-save="q34" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 35–38 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">35.</span> Question phrase: <strong>services above the normal level of care</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q35" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">36.</span> Question phrase: <strong>make residents feel pushed to buy better options</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q36" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">37.</span> Question phrase: <strong>people with less money may receive a worse experience</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q37" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">38.</span> Question phrase: <strong>fair treatment should not depend on wealth</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q38" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 39–40 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">39.</span> What must basic care remain?</div>
+  <textarea class="answer-field" data-save="q39" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">40.</span> What should extra services not become?</div>
+  <textarea class="answer-field" data-save="q40" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Final Check</h2>
+<ul class="checklist">
+  <li>Did I keep moving?</li>
+  <li>Did I avoid spending too long on one question?</li>
+  <li>Did I answer from the passage only?</li>
+  <li>Did I recognise synonyms and similar phrases?</li>
+  <li>Did I finish within 60 minutes?</li>
+</ul>
+
+
+      <details>
+        <summary>Teacher Answer Guide</summary>
+        <div class="answers">
+          
+<h3>Section 1</h3>
+<ol>
+<li>TRUE</li><li>TRUE</li><li>NOT GIVEN</li><li>TRUE</li><li>FALSE</li><li>TRUE</li>
+<li>Advanced dementia.</li>
+<li>Pay television / newspapers / outings / wine.</li>
+<li>To move his mother into safe care.</li>
+<li>His mother’s rights.</li>
+<li>Because his mother could not access or benefit from the services.</li>
+<li>Confidence, time or energy.</li>
+<li>Difficult and requiring persistence.</li>
+</ol>
+<h3>Section 2</h3>
+<ol start="14">
+<li>was not isolated</li>
+<li>service charges or funding connected with residential aged care</li>
+<li>allegedly improper additional fees</li>
+<li>reviewed and changed their practices voluntarily</li>
+<li>could not use them because of health conditions</li>
+<li>aged care rules place limits on when providers can charge residents for additional services</li>
+<li>199</li>
+<li>government</li>
+<li>additional fees</li>
+<li>court</li>
+<li>benefit</li>
+<li>B</li><li>A</li><li>C</li>
+</ol>
+<h3>Section 3</h3>
+<ol start="28">
+<li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li>
+<li>services beyond the ordinary standard of care</li>
+<li>feel pressured to purchase upgraded choices</li>
+<li>residents with fewer financial resources may have a poorer experience</li>
+<li>aged care should protect dignity, not divide people according to income</li>
+<li>Adequate, respectful and available to all.</li>
+<li>A way of weakening the standard support that every resident deserves.</li>
+</ol>
+
+        </div>
+      </details>
+
+      <div class="navrow no-print">
+        <a class="button secondary" href="ielts_final_week_index_v3.html">Menu</a>
+        <a class="button secondary" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const pageKey = document.body.dataset.page || document.title.replace(/\W+/g, "_");
+    const fields = () => Array.from(document.querySelectorAll("[data-save]"));
+    const timerEl = document.getElementById("timer");
+    let remaining = Number(localStorage.getItem(pageKey + ":timer") || 3600);
+    let timerId = null;
+
+    function fmt(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    }
+    function renderTimer() {
+      timerEl.textContent = fmt(remaining);
+    }
+    function startTimer() {
+      if (timerId) return;
+      timerId = setInterval(() => {
+        remaining = Math.max(0, remaining - 1);
+        localStorage.setItem(pageKey + ":timer", String(remaining));
+        renderTimer();
+        if (remaining <= 0) {
+          clearInterval(timerId);
+          timerId = null;
+          alert("Time is finished.");
+        }
+      }, 1000);
+    }
+    function resetTimer() {
+      clearInterval(timerId);
+      timerId = null;
+      remaining = 3600;
+      localStorage.setItem(pageKey + ":timer", String(remaining));
+      renderTimer();
+    }
+    function saveField(el) {
+      localStorage.setItem(pageKey + ":" + el.dataset.save, el.value);
+    }
+    function loadFields() {
+      fields().forEach(el => {
+        const saved = localStorage.getItem(pageKey + ":" + el.dataset.save);
+        if (saved !== null) el.value = saved;
+        el.addEventListener("input", () => saveField(el));
+      });
+    }
+    function clearAnswers() {
+      if (!confirm("Clear all typed answers on this page?")) return;
+      fields().forEach(el => {
+        el.value = "";
+        localStorage.removeItem(pageKey + ":" + el.dataset.save);
+      });
+    }
+    function downloadAnswers() {
+      const title = document.querySelector("h1").textContent.trim();
+      const lines = [];
+      lines.push(title);
+      lines.push(document.querySelector(".subtitle").textContent.trim());
+      lines.push("");
+      fields().forEach(el => {
+        const label = el.closest("label")?.innerText?.split("\n")[0]?.trim() || el.dataset.save;
+        lines.push(label + ": " + (el.value || ""));
+      });
+      const blob = new Blob([lines.join("\n")], {type: "text/plain;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = pageKey + "_answers.txt";
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    }
+    renderTimer();
+    loadFields();
+  </script>
+</body>
+</html>

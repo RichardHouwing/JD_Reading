@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IELTS Reading Lesson — Day 3</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #ffffff;
+      --ink: #1f2933;
+      --muted: #5b6673;
+      --line: #d7d0c4;
+      --accent: #6b4f2a;
+      --accent2: #0f5e56;
+      --soft: #efe8dc;
+      --field: #fffdf7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .topbar-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .topbar a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button, .button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button.secondary, .button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+    button.danger {
+      background: #8a2d2d;
+      border-color: #8a2d2d;
+    }
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent2);
+      min-width: 82px;
+      text-align: right;
+    }
+    main {
+      max-width: 1000px;
+      margin: 22px auto 60px;
+      padding: 0 18px;
+    }
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 6px 22px rgba(31, 41, 51, .07);
+      padding: 28px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 30px;
+      line-height: 1.15;
+      color: var(--accent);
+    }
+    h2 {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 2px solid var(--soft);
+      color: var(--accent2);
+      font-size: 23px;
+    }
+    h3 {
+      color: var(--accent);
+      margin-top: 24px;
+      font-size: 18px;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .source {
+      background: var(--soft);
+      border-left: 5px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #3b3328;
+      margin: 16px 0 22px;
+    }
+    .rule {
+      background: #eef7f5;
+      border: 1px solid #cbe4df;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+    .passage {
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 14px 0 22px;
+    }
+    .question {
+      margin: 18px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #ddd4c7;
+    }
+    .question:last-child { border-bottom: 0; }
+    .qnum {
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .answer-field {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      background: var(--field);
+      font: inherit;
+      resize: vertical;
+    }
+    .short-field { min-height: 38px; }
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    label.meta {
+      display: block;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .meta input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid #c9c0b2;
+      border-radius: 10px;
+      font: inherit;
+      background: var(--field);
+    }
+    details {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--soft);
+    }
+    .answers {
+      padding: 16px 20px;
+    }
+    .answers ol {
+      margin-top: 0;
+    }
+    .navrow {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0 20px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px;
+      vertical-align: top;
+    }
+    th {
+      background: var(--soft);
+      text-align: left;
+    }
+    ul.checklist li {
+      margin: 8px 0;
+    }
+    @media (max-width: 720px) {
+      .name-row { grid-template-columns: 1fr; }
+      .topbar-inner { align-items: flex-start; }
+      .timer { text-align: left; }
+      .paper { padding: 18px; }
+      h1 { font-size: 25px; }
+    }
+    @media print {
+      body { background: white; }
+      .topbar, .navrow, .no-print { display: none !important; }
+      main { margin: 0; max-width: none; padding: 0; }
+      .paper { border: 0; box-shadow: none; padding: 0; }
+      details { page-break-inside: avoid; }
+      .answer-field, .meta input {
+        border: 1px solid #999;
+        background: white;
+      }
+      h2 { page-break-before: auto; }
+      .passage { background: white; }
+    }
+  </style>
+</head>
+<body data-page="ielts_day3_penpals_interactive">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><a href="ielts_final_week_index_v3.html">← Final Week Menu</a></div>
+      <div class="controls">
+        <span class="timer" id="timer">60:00</span>
+        <button type="button" onclick="startTimer()">Start</button>
+        <button type="button" class="secondary" onclick="resetTimer()">Reset</button>
+        <button type="button" class="secondary" onclick="window.print()">Print</button>
+        <button type="button" onclick="downloadAnswers()">Download my answers</button>
+        <button type="button" class="danger" onclick="clearAnswers()">Clear typed answers</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <article class="paper">
+      <h1>IELTS Reading Lesson — Day 3</h1>
+      <div class="subtitle">Control Overthinking | International Penpals Meet After 33 Years</div>
+      <div class="source">Based on the ABC article about international penpals meeting after 33 years. The passages are paraphrased for IELTS practice.</div>
+
+      <div class="name-row">
+        <label class="meta">Name
+          <input data-save="name" type="text" placeholder="Type name here">
+        </label>
+        <label class="meta">Date
+          <input data-save="date" type="text" placeholder="Type date here">
+        </label>
+      </div>
+
+      
+<div class="rule">
+  <p><strong>Today’s Rule</strong></p>
+  <p>Use only the passage. Do not add your own knowledge. Do not guess from personal experience. Find evidence. Answer. Move on.</p>
+</div>
+
+<h2>Timing</h2>
+<p>This lesson has 3 sections and 40 questions. You have 60 minutes.</p>
+<ul>
+  <li>Section 1: 15 minutes</li>
+  <li>Section 2: 20 minutes</li>
+  <li>Section 3: 25 minutes</li>
+</ul>
+
+<h2>Section 1 — Questions 1–13</h2>
+<div class="passage">
+<h3>Passage 1: A Friendship Across the World</h3>
+<p>Long before social media became common, two primary school girls began writing letters to each other through an international teacher exchange program. Saskia lived in Australia, while Heidi lived in Canada. The two girls became penpals and continued to stay in contact for more than three decades.</p>
+<p>Their friendship began when Saskia was nine years old. At that time, communication was slow. A letter could take weeks, or sometimes months, to receive a reply. Even so, Saskia found the process exciting. She enjoyed sharing news from her own life and hearing about Heidi’s very different world.</p>
+<p>Saskia grew up near the beach in Australia. Heidi lived on a cattle ranch in Canada, surrounded by mountains and blue lakes. To Saskia, Heidi’s life seemed almost dreamlike. She heard stories about riding horses, branding cattle and living in a landscape very different from her own.</p>
+<p>As the years passed, their method of communication changed. Letters were gradually replaced by emails and later by social media. Although modern technology made contact easier, Saskia missed the personal feeling of handwritten letters.</p>
+<p>After 33 years of friendship, the two women finally met face-to-face. Heidi travelled to Australia for her brother’s wedding. At first, it seemed unlikely that the meeting would happen because Saskia was also travelling overseas. However, there was one day when both women would be in the same area. They met at Thirroul Station, and Heidi later visited Saskia’s shop with her family.</p>
+<p>For Saskia, meeting Heidi did not feel strange. She said it felt comfortable, almost as though they had met many times before.</p>
+</div>
+
+<h3>Questions 1–6 — True / False / Not Given</h3>
+<p>Write TRUE, FALSE, or NOT GIVEN.</p>
+<div class="question">
+  <div><span class="qnum">1.</span> Saskia and Heidi became penpals through a school-related program.</div>
+  <textarea class="answer-field short-field" data-save="q1" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">2.</span> Saskia and Heidi first met face-to-face when they were children.</div>
+  <textarea class="answer-field short-field" data-save="q2" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">3.</span> Letters between the two girls sometimes took months to receive a reply.</div>
+  <textarea class="answer-field short-field" data-save="q3" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">4.</span> Saskia thought Heidi’s life in Canada seemed ordinary and uninteresting.</div>
+  <textarea class="answer-field short-field" data-save="q4" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">5.</span> Saskia preferred social media because it felt more personal than handwritten letters.</div>
+  <textarea class="answer-field short-field" data-save="q5" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">6.</span> Heidi travelled to Australia to attend her brother’s wedding.</div>
+  <textarea class="answer-field short-field" data-save="q6" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 7–13 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">7.</span> How old was Saskia when the friendship began?</div>
+  <textarea class="answer-field" data-save="q7" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">8.</span> Where did Saskia grow up?</div>
+  <textarea class="answer-field" data-save="q8" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">9.</span> Where did Heidi live in Canada?</div>
+  <textarea class="answer-field" data-save="q9" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">10.</span> Name one activity connected with Heidi’s life in Canada.</div>
+  <textarea class="answer-field" data-save="q10" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">11.</span> What replaced letters as the years passed?</div>
+  <textarea class="answer-field" data-save="q11" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">12.</span> Where did Saskia and Heidi meet?</div>
+  <textarea class="answer-field" data-save="q12" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">13.</span> How did the meeting feel for Saskia?</div>
+  <textarea class="answer-field" data-save="q13" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 2 — Questions 14–27</h2>
+<div class="passage">
+<h3>Passage 2: The Value of Penpal Friendships</h3>
+<p>Penpal friendships may seem old-fashioned, but many people still value them. In the past, writing to someone overseas required patience. A person had to write a letter by hand, place it in an envelope, buy an international stamp and wait for the reply. This delay was part of the experience.</p>
+<p>Letters also had a personal quality. People often included photos, postcards, maps, recipes, stickers, friendship bracelets or other small items. These objects made the exchange feel warm and human. A handwritten letter could become a keepsake, something to read again years later.</p>
+<p>Some people believe penpal friendships offer emotional benefits. Writing to someone who lives far away may make it easier to speak openly. A person may share thoughts in a letter that they would find difficult to say in conversation. This can create a deep friendship, even if the two people have never met.</p>
+<p>Penpal organisations continue to exist today. Some offer traditional letters, while others include online messaging. Their purpose is not only communication, but also connection. They allow people to learn about different cultures, develop patience and form friendships beyond their own community.</p>
+<p>For older people, penpal writing can be especially meaningful. If travel becomes difficult, letters and messages can still bring a sense of the wider world. Some people describe it as travelling from an armchair. It can reduce loneliness and help people feel part of a larger human story.</p>
+</div>
+
+<h3>Questions 14–19 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">14.</span> Question phrase: <strong>no longer modern</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q14" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">15.</span> Question phrase: <strong>waiting was included in the process</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q15" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">16.</span> Question phrase: <strong>something kept because it is special</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q16" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">17.</span> Question phrase: <strong>talk honestly about personal thoughts</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q17" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">18.</span> Question phrase: <strong>friendships outside the local area</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q18" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">19.</span> Question phrase: <strong>feel connected to a bigger world</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q19" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 20–24 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">20.</span> In the past, international penpal writing required practical steps such as buying stamps.</div>
+  <textarea class="answer-field short-field" data-save="q20" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">21.</span> The passage says handwritten letters always contain gifts.</div>
+  <textarea class="answer-field short-field" data-save="q21" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">22.</span> Writing to a distant person may help some people express themselves more openly.</div>
+  <textarea class="answer-field short-field" data-save="q22" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">23.</span> Modern penpal organisations only allow handwritten letters.</div>
+  <textarea class="answer-field short-field" data-save="q23" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">24.</span> For some older people, penpal contact can help reduce loneliness.</div>
+  <textarea class="answer-field short-field" data-save="q24" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 25–27 — Sentence Completion</h3>
+<div class="question">
+  <div><span class="qnum">25.</span> A handwritten letter could become a ___________________________.</div>
+  <textarea class="answer-field" data-save="q25" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">26.</span> Penpal organisations allow people to learn about ___________________________.</div>
+  <textarea class="answer-field" data-save="q26" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">27.</span> For people who find travel difficult, letters and messages can bring a sense of the ___________________________.</div>
+  <textarea class="answer-field" data-save="q27" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Section 3 — Questions 28–40</h2>
+<div class="passage">
+<h3>Passage 3: Reading Carefully Without Overthinking</h3>
+<p>The story of long-term penpals is simple, but it contains several ideas that can easily be misunderstood in a reading test. A careless reader may assume that old forms of communication are presented as better than modern technology. However, the passage does not say this. It says only that handwritten letters have a different quality from emails and social media.</p>
+<p>This distinction is important in IELTS Reading. A statement may sound reasonable, but it must be supported by the text. If the passage says that Saskia missed handwritten letters, this does not mean she rejected modern communication. If the passage says that letters can reduce loneliness, this does not mean they remove loneliness completely.</p>
+<p>True / False / Not Given questions require discipline. A true answer must be directly supported by the passage. A false answer must clearly disagree with the passage. A not given answer means the passage does not provide enough information, even if the statement sounds possible.</p>
+<p>A reflective reader may be tempted to think beyond the text. This can be dangerous in an exam. IELTS rewards evidence, not imagination. The candidate must ask, “Where does the passage say this?” If the answer cannot be found, the safest response may be Not Given.</p>
+<p>The same skill applies to synonyms. A passage may not repeat the exact words of the question. “Stayed in contact” may mean “continued to communicate”. “Face-to-face meeting” may mean “met in person”. “Reduced loneliness” may mean “made people feel less alone”. The successful candidate learns to recognise the same meaning without inventing extra meaning.</p>
+<p>Good exam reading is therefore balanced. The reader must be attentive, but not slow. Careful, but not anxious. Accurate, but not overly complicated. The aim is not to admire every sentence. The aim is to find the answer that the passage supports.</p>
+</div>
+
+<h3>Questions 28–34 — True / False / Not Given</h3>
+<div class="question">
+  <div><span class="qnum">28.</span> The passage says handwritten letters are always better than modern technology.</div>
+  <textarea class="answer-field short-field" data-save="q28" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">29.</span> A statement in IELTS Reading must be supported by the text.</div>
+  <textarea class="answer-field short-field" data-save="q29" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">30.</span> If Saskia missed handwritten letters, this proves that she disliked social media.</div>
+  <textarea class="answer-field short-field" data-save="q30" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">31.</span> A False answer must clearly disagree with the passage.</div>
+  <textarea class="answer-field short-field" data-save="q31" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">32.</span> Reflective readers may sometimes think beyond what the passage says.</div>
+  <textarea class="answer-field short-field" data-save="q32" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">33.</span> IELTS rewards imagination more than evidence.</div>
+  <textarea class="answer-field short-field" data-save="q33" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">34.</span> The passage says a candidate should admire every sentence before answering.</div>
+  <textarea class="answer-field short-field" data-save="q34" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 35–38 — Match the Similar Meaning</h3>
+<div class="question">
+  <div><span class="qnum">35.</span> Question phrase: <strong>old communication methods are shown as superior</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q35" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">36.</span> Question phrase: <strong>must be proved by the reading passage</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q36" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">37.</span> Question phrase: <strong>continued to communicate</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q37" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">38.</span> Question phrase: <strong>met in person</strong><br>Passage phrase:</div>
+  <textarea class="answer-field" data-save="q38" placeholder="Type answer here"></textarea>
+</div>
+
+<h3>Questions 39–40 — Short Answer Questions</h3>
+<div class="question">
+  <div><span class="qnum">39.</span> What question should a candidate ask before deciding an answer?</div>
+  <textarea class="answer-field" data-save="q39" placeholder="Type answer here"></textarea>
+</div><div class="question">
+  <div><span class="qnum">40.</span> What is the aim of good exam reading?</div>
+  <textarea class="answer-field" data-save="q40" placeholder="Type answer here"></textarea>
+</div>
+
+<h2>Final Check</h2>
+<ul class="checklist">
+  <li>Did I answer from the passage only?</li>
+  <li>Did I avoid adding my own knowledge?</li>
+  <li>Did I mark difficult questions and move on?</li>
+  <li>Did I finish within 60 minutes?</li>
+</ul>
+
+
+      <details>
+        <summary>Teacher Answer Guide</summary>
+        <div class="answers">
+          
+<h3>Section 1</h3>
+<ol>
+<li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>FALSE</li><li>TRUE</li>
+<li>Nine years old.</li>
+<li>Near the beach in Australia.</li>
+<li>On a cattle ranch in Canada.</li>
+<li>Riding horses / branding cattle.</li>
+<li>Emails and later social media.</li>
+<li>Thirroul Station.</li>
+<li>Comfortable / not strange / like they had met many times before.</li>
+</ol>
+<h3>Section 2</h3>
+<ol start="14">
+<li>Old-fashioned.</li>
+<li>This delay was part of the experience.</li>
+<li>A keepsake.</li>
+<li>Speak openly.</li>
+<li>Friendships beyond their own community.</li>
+<li>Feel part of a larger human story.</li>
+<li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li>
+<li>keepsake</li><li>different cultures</li><li>wider world</li>
+</ol>
+<h3>Section 3</h3>
+<ol start="28">
+<li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>FALSE</li>
+<li>old forms of communication are presented as better than modern technology</li>
+<li>supported by the text</li>
+<li>stayed in contact</li>
+<li>face-to-face meeting</li>
+<li>Where does the passage say this?</li>
+<li>To find the answer that the passage supports.</li>
+</ol>
+
+        </div>
+      </details>
+
+      <div class="navrow no-print">
+        <a class="button secondary" href="ielts_final_week_index_v3.html">Menu</a>
+        <a class="button secondary" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const pageKey = document.body.dataset.page || document.title.replace(/\W+/g, "_");
+    const fields = () => Array.from(document.querySelectorAll("[data-save]"));
+    const timerEl = document.getElementById("timer");
+    let remaining = Number(localStorage.getItem(pageKey + ":timer") || 3600);
+    let timerId = null;
+
+    function fmt(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    }
+    function renderTimer() {
+      timerEl.textContent = fmt(remaining);
+    }
+    function startTimer() {
+      if (timerId) return;
+      timerId = setInterval(() => {
+        remaining = Math.max(0, remaining - 1);
+        localStorage.setItem(pageKey + ":timer", String(remaining));
+        renderTimer();
+        if (remaining <= 0) {
+          clearInterval(timerId);
+          timerId = null;
+          alert("Time is finished.");
+        }
+      }, 1000);
+    }
+    function resetTimer() {
+      clearInterval(timerId);
+      timerId = null;
+      remaining = 3600;
+      localStorage.setItem(pageKey + ":timer", String(remaining));
+      renderTimer();
+    }
+    function saveField(el) {
+      localStorage.setItem(pageKey + ":" + el.dataset.save, el.value);
+    }
+    function loadFields() {
+      fields().forEach(el => {
+        const saved = localStorage.getItem(pageKey + ":" + el.dataset.save);
+        if (saved !== null) el.value = saved;
+        el.addEventListener("input", () => saveField(el));
+      });
+    }
+    function clearAnswers() {
+      if (!confirm("Clear all typed answers on this page?")) return;
+      fields().forEach(el => {
+        el.value = "";
+        localStorage.removeItem(pageKey + ":" + el.dataset.save);
+      });
+    }
+    function downloadAnswers() {
+      const title = document.querySelector("h1").textContent.trim();
+      const lines = [];
+      lines.push(title);
+      lines.push(document.querySelector(".subtitle").textContent.trim());
+      lines.push("");
+      fields().forEach(el => {
+        const label = el.closest("label")?.innerText?.split("\n")[0]?.trim() || el.dataset.save;
+        lines.push(label + ": " + (el.value || ""));
+      });
+      const blob = new Blob([lines.join("\n")], {type: "text/plain;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = pageKey + "_answers.txt";
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    }
+    renderTimer();
+    loadFields();
+  </script>
+</body>
+</html>
